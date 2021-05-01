@@ -11,8 +11,17 @@ import java.net.URL;
 
 public class AppiumDriverConfig {
     public final AppiumDriver driver;
+    private static AppiumDriverConfig _instance;
 
-    public AppiumDriverConfig() throws MalformedURLException {
+
+    public static AppiumDriverConfig Instance() {
+        if (_instance == null) {
+            AppiumDriverConfig._instance = new AppiumDriverConfig();
+        }
+        return AppiumDriverConfig._instance;
+    }
+
+    public AppiumDriverConfig() {
         File apk = new File("D:\\Arquivos de Backup\\aline\\Projetos Desenvolvimento\\java_appium\\src\\main\\resources\\alura_esporte.apk");
 
         DesiredCapabilities config = new DesiredCapabilities();
@@ -20,7 +29,12 @@ public class AppiumDriverConfig {
         config.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
         config.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 
-        URL urlConnection = new URL("http://127.0.0.1:4723/wd/hub");
-        driver =  new AppiumDriver<>(urlConnection, config);
+        URL urlConnection = null;
+        try {
+            urlConnection = new URL("http://127.0.0.1:4723/wd/hub");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver = new AppiumDriver<>(urlConnection, config);
     }
 }
