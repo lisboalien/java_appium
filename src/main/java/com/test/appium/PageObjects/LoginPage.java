@@ -6,14 +6,13 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
-    private AppiumDriver driver;
+public class LoginPage extends CommonPageObject {
 
     @AndroidFindBy(id = "br.com.alura.aluraesporte:id/login_botao_cadastrar_usuario")
     private AndroidElement button_sign_up_page;
 
     public LoginPage(AppiumDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 

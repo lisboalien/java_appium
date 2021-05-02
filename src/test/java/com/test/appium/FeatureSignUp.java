@@ -37,4 +37,18 @@ public class FeatureSignUp {
 
         signUpPage.register_new_user("Aline", "123", "123");
     }
+
+    @Test
+    public void sign_up_existent_user(){
+        AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
+
+        SignUpPage signUpPage = new SignUpPage(appiumDriver);
+        LoginPage loginPage = new LoginPage(appiumDriver);
+
+        loginPage.btn_sign_up_page();
+
+        signUpPage.register_new_user("Aline", "123", "123");
+
+        Assert.assertEquals("Different Passwords error message is incorrect", "Usuario já Cadastrado", signUpPage.get_sign_up_error_message());
+    }
 }

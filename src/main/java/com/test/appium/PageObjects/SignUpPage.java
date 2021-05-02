@@ -1,13 +1,12 @@
 package com.test.appium.PageObjects;
 
-import com.test.appium.archetypes.BasicMethods;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
-public class SignUpPage extends BasicMethods {
+public class SignUpPage extends CommonPageObject {
 
     @AndroidFindBy(id = "br.com.alura.aluraesporte:id/input_nome")
     private AndroidElement input_name;
@@ -26,7 +25,7 @@ public class SignUpPage extends BasicMethods {
 
 
     public SignUpPage(AppiumDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
@@ -49,7 +48,7 @@ public class SignUpPage extends BasicMethods {
     }
 
     public String get_sign_up_error_message() {
-        wait_ultil_element_is_displayed(this.message_sign_up_error);
+        wait_until_element_is_displayed(this.message_sign_up_error);
         return this.message_sign_up_error.getText();
     }
 
