@@ -1,11 +1,10 @@
 package com.test.appium;
 
+import com.test.appium.PageObjects.LoginPage;
+import com.test.appium.PageObjects.SignUpPage;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.net.MalformedURLException;
 import java.util.NoSuchElementException;
 
 
@@ -15,23 +14,16 @@ public class FeatureSignUp {
     public void cannot_register_different_passwords() {
         AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
 
-        MobileElement signUpPageButton = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/login_botao_cadastrar_usuario");
-        signUpPageButton.click();
+        SignUpPage signUpPage = new SignUpPage(appiumDriver);
+        LoginPage loginPage = new LoginPage(appiumDriver);
 
-        MobileElement nameInput = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/input_nome");
-        nameInput.setValue("Aline");
+        loginPage.btn_sign_up_page();
 
-        MobileElement passwordInput = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/input_senha");
-        passwordInput.setValue("123");
-
-        MobileElement confirmPasswordInput = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/input_confirmar_senha");
-        confirmPasswordInput.setValue("456");
-
-        MobileElement signUpButton = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/cadastro_usuario_botao_cadastrar");
-        signUpButton.click();
-
-        MobileElement errorMessage = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/erro_cadastro");
-        Assert.assertEquals("Different Passwords error message is incorrect", "Senhas não conferem", errorMessage.getText());
+        signUpPage.set_name_input("Aline");
+        signUpPage.set_password_input("123");
+        signUpPage.set_confirm_password_input("456");
+        signUpPage.btn_sign_up();
+        signUpPage.assert_sign_up_error_message();
 
         appiumDriver.navigate().back();
     }
@@ -40,21 +32,14 @@ public class FeatureSignUp {
     public void sign_up_new_user() throws NoSuchElementException {
         AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
 
-        MobileElement signUpPageButton = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/login_botao_cadastrar_usuario");
-        signUpPageButton.click();
+        SignUpPage signUpPage = new SignUpPage(appiumDriver);
+        LoginPage loginPage = new LoginPage(appiumDriver);
 
-        MobileElement nameInput = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/input_nome");
-        nameInput.setValue("Aline");
+        loginPage.btn_sign_up_page();
 
-        MobileElement passwordInput = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/input_senha");
-        passwordInput.setValue("123");
-
-        MobileElement confirmPasswordInput = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/input_confirmar_senha");
-        confirmPasswordInput.setValue("123");
-
-        MobileElement signUpButton = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/cadastro_usuario_botao_cadastrar");
-        signUpButton.click();
-
-        MobileElement loginButton = (MobileElement) appiumDriver.findElementById("br.com.alura.aluraesporte:id/login_botao_logar");
+        signUpPage.set_name_input("Aline");
+        signUpPage.set_password_input("123");
+        signUpPage.set_confirm_password_input("123");
+        signUpPage.btn_sign_up();
     }
 }
