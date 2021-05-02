@@ -49,10 +49,20 @@ public class SignUpPage {
         this.button_sign_up.click();
     }
 
-    // --------------- Assertion Methods --------------
+    public String get_sign_up_error_message() {
+        return this.message_sign_up_error.getText();
+    }
 
-    public void assert_sign_up_error_message() {
-        Assert.assertEquals("Different Passwords error message is incorrect", "Senhas não conferem", this.message_sign_up_error.getText());
+    // ------------- Interaction methods -------------
+    public void fill_sign_up_form(String name, String password, String confirmPassword) {
+        set_name_input(name);
+        set_password_input(password);
+        set_confirm_password_input(confirmPassword);
+    }
+
+    public void register_new_user(String name, String password, String confirmPassword) {
+        fill_sign_up_form(name, password, confirmPassword);
+        btn_sign_up();
     }
 
 }
